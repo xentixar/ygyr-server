@@ -17,7 +17,7 @@ class DetectionController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $file_name = md5($request->file('image')->getClientOriginalName() . time() . "-" . Auth::id()) . "." . $request->file('image')->getClientOriginalExtension();
+        $file_name = md5($request->file('image')->getClientOriginalName().time().'-'.Auth::id()).'.'.$request->file('image')->getClientOriginalExtension();
         $request->file('image')->move(storage_path('app/public/detection/'), $file_name);
 
         exec('', $output, $return_var);
@@ -32,10 +32,11 @@ class DetectionController extends Controller
                     'user_id' => Auth::id(),
                     'label_id' => $label->id,
                 ]);
+
                 return response()->json(['status' => true, 'data' => $activity], 200);
             }
         }
 
-        return response()->json(['status' => false, 'error' => "Error occurred while detecting the image"], 200);
+        return response()->json(['status' => false, 'error' => 'Error occurred while detecting the image'], 200);
     }
 }

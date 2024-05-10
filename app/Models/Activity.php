@@ -16,7 +16,7 @@ class Activity extends Model
 
     public function getUrlAttribute(): \Illuminate\Foundation\Application|string|UrlGenerator|Application
     {
-        return url('storage/detections/images/' . $this->getAttribute('image'));
+        return url('storage/detections/images/'.$this->getAttribute('image'));
     }
 
     public function user(): BelongsTo
