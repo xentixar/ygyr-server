@@ -22,6 +22,10 @@
                class="block p-3 mb-1 hover:bg-slate-100 {{request()->routeIs('admin.users.index') || request()->routeIs('admin.users.create') || request()->routeIs('admin.users.edit') ? 'bg-slate-100' : ''}}">Users</a>
             <a href="{{route('admin.labels.index')}}"
                class="block p-3 mb-1 hover:bg-slate-100 {{request()->routeIs('admin.labels.index') || request()->routeIs('admin.labels.create') || request()->routeIs('admin.labels.edit') || request()->routeIs('admin.usages.index') || request()->routeIs('admin.usages.create') || request()->routeIs('admin.usages.edit') ? 'bg-slate-100' : ''}}">Labels</a>
+            <a href="{{route('admin.donations.index')}}"
+               class="block p-3 mb-1 hover:bg-slate-100 {{request()->routeIs('admin.donations.index') || request()->routeIs('admin.donations.edit') ? 'bg-slate-100' : ''}}">Donations</a>
+            <a href="{{route('admin.warehouse')}}"
+               class="block p-3 mb-1 hover:bg-slate-100 {{request()->routeIs('admin.warehouse') ? 'bg-slate-100' : ''}}">Warehouse</a>
         </div>
     </aside>
     <main class="bg-slate-50 min-h-screen  ms-[270px] ">

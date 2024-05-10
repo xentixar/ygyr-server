@@ -12,6 +12,16 @@ class Label extends Model
 
     protected $fillable = ['name'];
 
+    public function donations(): HasMany
+    {
+        return $this->hasMany(Donation::class);
+    }
+
+    public function warehouses(): HasMany
+    {
+        return $this->hasMany(Warehouse::class);
+    }
+
     protected function usages(): HasMany
     {
         return $this->hasMany(Usage::class);
