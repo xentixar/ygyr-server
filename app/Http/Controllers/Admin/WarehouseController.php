@@ -12,6 +12,7 @@ class WarehouseController extends Controller
     public function __invoke(Request $request): View
     {
         $warehouses = Warehouse::query()->orderBy('id', 'DESC')->paginate(10);
+
         return view('admin.warehouses.index', compact('warehouses'));
     }
 }

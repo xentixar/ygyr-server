@@ -14,7 +14,7 @@ class Donation extends Model
 
     public function getUrlAttribute(): string
     {
-        return url('storage/donations/' . $this->getAttribute('image'));
+        return url('storage/donations/'.$this->getAttribute('image'));
     }
 
     public function label(): BelongsTo
