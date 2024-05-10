@@ -17,11 +17,13 @@
         </div>
         <div class="mt-4">
             <a href="{{route('dashboard')}}"
-               class="block p-3 mb-1 hover:bg-slate-100 {{request()->routeIs('dashboard') ? 'bg-slate-100' : ''}}">Dashboard</a>
+               class="block p-3 mb-1 hover:bg-slate-100 {{request()->routeIs('dashboard') ? 'bg-slate-100' : ''}}">Dashboard</a><a
+                href="{{route('admin.users.index')}}"
+                class="block p-3 mb-1 hover:bg-slate-100 {{request()->routeIs('admin.users.index') || request()->routeIs('admin.users.create') || request()->routeIs('admin.users.edit') ? 'bg-slate-100' : ''}}">Users</a>
         </div>
     </aside>
-    <main class="bg-slate-50 min-h-screen">
-        <nav class="bg-white shadow px-6  py-3 ms-[270px] flex justify-between">
+    <main class="bg-slate-50 min-h-screen  ms-[270px] ">
+        <nav class="bg-white shadow px-6 py-3 flex justify-between">
             <a href="" class="text-2xl">&equiv;</a>
             <div x-data="{open:false}">
                 <svg @click="open=!open" height="30" width="30" class="rounded-full border cursor-pointer" id="Layer_1"
@@ -112,7 +114,7 @@
                     </g>
                 </svg>
                 <div x-show="open" @click.outside="open = false"
-                     class="bg-gray-200 fixed rounded top-[56px] pt-2 right-0 min-w-[200px]">
+                     class="bg-gray-200 fixed rounded top-[56px] pt-2 right-0 min-w-[200px] z-50">
                     <a href="" class="py-3 px-3 block mb-2 hover:bg-gray-100">Profile</a>
                     <hr>
                     <a href="#" onclick="this.nextElementSibling.submit()"
@@ -123,6 +125,10 @@
                 </div>
             </div>
         </nav>
+
+        <div class="p-5">
+            {{$slot}}
+        </div>
     </main>
 </div>
 </body>
