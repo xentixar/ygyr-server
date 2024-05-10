@@ -17,9 +17,11 @@
         </div>
         <div class="mt-4">
             <a href="{{route('dashboard')}}"
-               class="block p-3 mb-1 hover:bg-slate-100 {{request()->routeIs('dashboard') ? 'bg-slate-100' : ''}}">Dashboard</a><a
-                href="{{route('admin.users.index')}}"
-                class="block p-3 mb-1 hover:bg-slate-100 {{request()->routeIs('admin.users.index') || request()->routeIs('admin.users.create') || request()->routeIs('admin.users.edit') ? 'bg-slate-100' : ''}}">Users</a>
+               class="block p-3 mb-1 hover:bg-slate-100 {{request()->routeIs('dashboard') ? 'bg-slate-100' : ''}}">Dashboard</a>
+            <a href="{{route('admin.users.index')}}"
+               class="block p-3 mb-1 hover:bg-slate-100 {{request()->routeIs('admin.users.index') || request()->routeIs('admin.users.create') || request()->routeIs('admin.users.edit') ? 'bg-slate-100' : ''}}">Users</a>
+            <a href="{{route('admin.labels.index')}}"
+               class="block p-3 mb-1 hover:bg-slate-100 {{request()->routeIs('admin.labels.index') || request()->routeIs('admin.labels.create') || request()->routeIs('admin.labels.edit') ? 'bg-slate-100' : ''}}">Labels</a>
         </div>
     </aside>
     <main class="bg-slate-50 min-h-screen  ms-[270px] ">
