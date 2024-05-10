@@ -21,7 +21,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100',
             'email' => 'required|email|max:100|unique:users,email',
-            'password' => ['required', 'confirmed', Password::min(8)->mixedCase()]
+            'password' => ['required', 'confirmed', Password::min(8)->mixedCase()],
         ]);
 
         if ($validator->fails()) {
@@ -42,7 +42,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -51,7 +51,7 @@ class AuthController extends Controller
 
         $credentials = $validator->validated();
 
-        if (!Auth::attempt($credentials, true)) {
+        if (! Auth::attempt($credentials, true)) {
             return response()->json(['errors' => 'Email or password field is incorrect', 'status' => false], 401);
         }
 
@@ -62,8 +62,8 @@ class AuthController extends Controller
             'message' => 'User logged in successfully',
             'data' => [
                 'user' => $user,
-                'token' => $user->createToken("API TOKEN")->plainTextToken
-            ]
+                'token' => $user->createToken('API TOKEN')->plainTextToken,
+            ],
         ], 200);
     }
 

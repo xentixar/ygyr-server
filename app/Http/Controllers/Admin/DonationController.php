@@ -14,6 +14,7 @@ class DonationController extends Controller
     public function index(): View
     {
         $donations = Donation::query()->orderBy('id', 'DESC')->paginate(10);
+
         return view('admin.donations.index', compact('donations'));
     }
 
@@ -30,13 +31,14 @@ class DonationController extends Controller
     public function edit(string $id): View
     {
         $donation = Donation::query()->findOrFail($id);
+
         return view('admin.donations.edit', compact('donation'));
     }
 
     public function update(Request $request, string $id): RedirectResponse
     {
         $validated = $request->validate([
-            'weight' => 'required'
+            'weight' => 'required',
         ]);
 
         $donation = Donation::query()->findOrFail($id);
@@ -45,11 +47,11 @@ class DonationController extends Controller
             'label_id' => $donation->label_id,
             'user_id' => $donation->user_id,
             'image' => $donation->image,
-            'weight' => $validated['weight']
+            'weight' => $validated['weight'],
         ]);
 
         $donation->update([
-            'status' => true
+            'status' => true,
         ]);
 
         $donation->user->update([
@@ -68,6 +70,7 @@ class DonationController extends Controller
     {
         $donation = Donation::query()->findOrFail($id);
         $donation->delete();
+
         return redirect()->route('admin.donations.index');
     }
 }
