@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\DetectionController;
+use App\Http\Controllers\Api\V1\DonationController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->name('api.')->group(function () {
@@ -14,5 +15,7 @@ Route::prefix('v1')->name('api.')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('detect', DetectionController::class)->name('detect');
+        Route::get('activities', DetectionController::class)->name('activities');
+        Route::post('donate', DonationController::class)->name('donate');
     });
 });
