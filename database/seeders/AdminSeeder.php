@@ -9,11 +9,11 @@ class AdminSeeder extends Seeder
 {
     public function run(): void
     {
-        if (! User::query()->where('email', 'admin@admin.com')->exists()) {
+        if (!User::query()->where('email', 'admin@admin.com')->exists()) {
             User::query()->create([
                 'name' => 'Admin',
                 'email' => 'admin@admin.com',
-                'password' => bcrypt('password'),
+                'password' => bcrypt('Password12@'),
                 'role' => 'admin',
                 'email_verified_at' => now(),
             ]);

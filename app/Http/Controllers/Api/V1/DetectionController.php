@@ -17,28 +17,28 @@ class DetectionController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
         ]);
 
-        $file_name = md5($request->file('image')->getClientOriginalName().time().'-'.Auth::id()).'.'.$request->file('image')->getClientOriginalExtension();
+        $file_name = md5($request->file('image')->getClientOriginalName() . time() . '-' . 1) . '.' . $request->file('image')->getClientOriginalExtension();
         $request->file('image')->move(storage_path('app/public/detection/'), $file_name);
 
-        exec('', $output, $return_var);
+        // exec('', $output, $return_var);
 
-        $response = json_decode($output[0], true);
+        // $response = json_decode($output[0], true);
 
-        if ($response['label']) {
-            $label = Label::query()->where('name', $response['label'])->first();
-            if ($label) {
-                $activity = Activity::query()->create([
-                    'image' => $file_name,
-                    'user_id' => 1,
-                    'label_id' => $label->id,
-                ]);
+        // if ($response['label']) {
+        //     $label = Label::query()->where('name', $response['label'])->first();
+        //     if ($label) {
+        //         $activity = Activity::query()->create([
+        //             'image' => $file_name,
+        //             'user_id' => 1,
+        //             'label_id' => $label->id,
+        //         ]);
 
-                return response()->json(['status' => true, 'data' => $activity], 200);
-            }
-        }
+        //         return response()->json(['status' => true, 'data' => $activity], 200);
+        //     }
+        // }
 
         return response()->json(['status' => true, 'data' => [
-            'url' => url('storage/detection/'.$file_name),
+            'url' => url('storage/detection/' . $file_name),
             'label' => 'Silver',
             'description' => [
                 'Utensils',

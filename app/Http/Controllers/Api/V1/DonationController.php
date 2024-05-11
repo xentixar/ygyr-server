@@ -31,7 +31,7 @@ class DonationController extends Controller
         $label = Label::query()->where('name', '=', $validated['label'])->first();
 
         $donation = Donation::query()->create([
-            'user_id' => auth()->user(),
+            'user_id' => 1,
             'image' => $validated['image'],
             'label_id' => $label->id,
         ]);
