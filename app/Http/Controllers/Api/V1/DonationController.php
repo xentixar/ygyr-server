@@ -7,6 +7,7 @@ use App\Models\Donation;
 use App\Models\Label;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -31,7 +32,7 @@ class DonationController extends Controller
         $label = Label::query()->where('name', '=', $validated['label'])->first();
 
         $donation = Donation::query()->create([
-            'user_id' => 1,
+            'user_id' => Auth::id(),
             'image' => $validated['image'],
             'label_id' => $label->id,
         ]);

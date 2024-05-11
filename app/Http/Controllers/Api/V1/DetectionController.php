@@ -3,49 +3,47 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Activity;
 use App\Models\Label;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class DetectionController extends Controller
 {
     public function __invoke(Request $request): JsonResponse
     {
-        $request->validate([
+        $validator = Validator::make($request->all(),[
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
         ]);
 
-        $file_name = md5($request->file('image')->getClientOriginalName() . time() . '-' . 1) . '.' . $request->file('image')->getClientOriginalExtension();
+        if ($validator->fails())
+        {
+            return response()->json(['status'=>false,'errors'=> $validator->errors()->first()], 422);
+        }
+
+        $file_name = md5($request->file('image')->getClientOriginalName().time().'-'. Auth::id()).'.'.$request->file('image')->getClientOriginalExtension();
         $request->file('image')->move(storage_path('app/public/detection/'), $file_name);
 
-        // exec('', $output, $return_var);
+        $file_original_name = explode('.', $file_name);
+        $file_original_name = $file_original_name[0];
 
-        // $response = json_decode($output[0], true);
+        $label_name = "";
 
-        // if ($response['label']) {
-        //     $label = Label::query()->where('name', $response['label'])->first();
-        //     if ($label) {
-        //         $activity = Activity::query()->create([
-        //             'image' => $file_name,
-        //             'user_id' => 1,
-        //             'label_id' => $label->id,
-        //         ]);
+        sleep(5);
+        $label_name = file_get_contents(storage_path("app/public/outputs/$file_original_name.txt"));
 
-        //         return response()->json(['status' => true, 'data' => $activity], 200);
-        //     }
-        // }
 
+        $label = Label::query()->where('name', '=', $label_name)->first();
+        $descriptions = [];
+        foreach ($label->usages ?? [] as $usage) {
+            $descriptions[] = $usage->description;
+        }
+        
         return response()->json(['status' => true, 'data' => [
-            'url' => url('storage/detection/' . $file_name),
-            'label' => 'Silver',
-            'description' => [
-                'Utensils',
-                'Rings ',
-            ],
+            'url' => url('storage/outputs/'.$file_name),
+            'label' => $label_name,
+            'description' => $descriptions,
         ]], 200);
-
-        return response()->json(['status' => false, 'error' => 'Error occurred while detecting the image'], 500);
     }
 }

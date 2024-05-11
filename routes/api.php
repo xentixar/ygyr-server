@@ -13,7 +13,6 @@ Route::prefix('v1')->name('api.')->group(function () {
         Route::post('user', [AuthController::class, 'user'])->middleware('auth:sanctum')->name('user');
     });
 
-    Route::get('activities', DetectionController::class)->name('activities');
     Route::post('donate', DonationController::class)->name('donate');
     Route::post('detect', DetectionController::class)->name('detect');
 });
